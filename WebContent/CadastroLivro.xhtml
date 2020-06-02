@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cadastro de Livro</title>
+</h:head>
+<h:body>
+	<h:form>
+	
+	<p:commandLink value="CADASTRO EDITORA" action="CadastroEditora.xhtml" immediate="true"/> |
+	<p:commandLink value="LISTA EDITORA" action="ListaEditora.xhtml" immediate="true"/> |
+	<p:commandLink value="LISTA LIVRO" action="ListaLivro.xhtml" immediate="true"/> 
+	
+		<h1>Cadastro de Livro</h1>
+		<p:messages />
+		<p:panelGrid columns="2">
+
+			<h:outputText value="Titulo: *" />
+			<p:inputText value="#{livroControllerPedro.livro.titulo}" 
+			required="true" requiredMessage="O campo Titulo é obrigatório!" />
+			
+			<h:outputText value="Editora: *" />
+			<p:selectOneMenu value="#{livroControllerPedro.editoraSelecionada}"
+			converter="EditoraConverter"
+			required="true" requiredMessage="O campo Titulo é obrigatório!">
+			
+			<f:selectItem itemLabel="SELECIONE"/>
+			<f:selectItems 
+			 		value="#{editoraControllerPedro.lista}"
+			 		var="editora" 
+			 		 itemLabel="#{editora.editora}"
+			 		itemValue="#{editora}"/>
+			
+			</p:selectOneMenu>			
+			
+			<h:outputText value="Valor: *" />
+			<p:inputText value="#{livroControllerPedro.livro.valor}" 
+			required="true" requiredMessage="O campo Valor é obrigatório!" >
+			<f:validateDoubleRange minimum="0"/>
+			</p:inputText>
+			
+			<p:commandButton value="Salvar" action="#{livroControllerPedro.salvar}" ajax="false"/>
+			
+			<p:commandButton value="Limpar" action="CadastroLivro.xhtml" 
+			actionListener="#{livroControllerPedro.limparCampos}" immediate="true" ajax="false"/>
+			
+		</p:panelGrid>
+	</h:form>
+</h:body>
+
+</html>
+
